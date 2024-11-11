@@ -5,6 +5,8 @@ val DEV: String by project
 
 repositories {
     mavenCentral()
+
+    maven("https://jitpack.io")
 }
 
 group   = "one.wabbit"
@@ -12,13 +14,22 @@ version = "1.0.0"
 
 plugins {
     kotlin("jvm") version "2.0.20"
+
+    id("maven-publish")
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("maven") {
+      groupId = "one.wabbit"
+      artifactId = "kotlin-data-ref"
+      version = "1.0.0"
+      from(components["java"])
+    }
+  }
 }
 
 dependencies {
-    if (DEV == "true") {
-    } else {
-    }
-
     testImplementation(kotlin("test"))
 }
 
