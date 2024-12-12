@@ -1,5 +1,12 @@
 package one.wabbit.data
 
+/**
+ * Represents a reference to a value of type A. This class holds the reference and provides
+ * identity-based equality and hash code generation using the underlying value's identity.
+ *
+ * @param A The type of the value referenced.
+ * @property value The value held by the reference.
+ */
 class Ref<out A>(val value: A) {
     override fun hashCode(): Int =
         System.identityHashCode(value)
