@@ -12,11 +12,12 @@ class Ref<out A>(val value: A) {
         System.identityHashCode(value)
 
     override fun equals(other: Any?): Boolean =
-        other is Ref<*> && value === other.value
+        this === other || (other is Ref<*> && value === other.value)
 
     override fun toString(): String {
-        if (value === null) return "Ref[null]"
-        val hash = Integer.toHexString(System.identityHashCode(value))
-        return "Ref[${value.javaClass.simpleName}@$hash]"
+        val v = value ?: return "Ref[null]"
+        val cls = v::class.simpleName ?: v.javaClass.name // fallback for anonymous types
+        val hex = Integer.toHexString(System.identityHashCode(v))
+        return "Ref[$cls@$hex]"
     }
 }
