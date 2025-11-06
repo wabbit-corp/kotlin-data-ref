@@ -1,16 +1,15 @@
 package one.wabbit.data
 
-import java.util.*
+import java.util.Collections
+import java.util.IdentityHashMap
 import kotlin.collections.ArrayList
 
-fun <T> identitySet(): MutableSet<T> =
-    Collections.newSetFromMap(IdentityHashMap<T, Boolean>())
+fun <T> identitySet(): MutableSet<T> = Collections.newSetFromMap(IdentityHashMap<T, Boolean>())
 
 fun <T> identitySetOf(vararg elements: T): MutableSet<T> =
     identitySet<T>().also { it.addAll(elements) }
 
-fun <K, V> identityMap(): MutableMap<K, V> =
-    IdentityHashMap()
+fun <K, V> identityMap(): MutableMap<K, V> = IdentityHashMap()
 
 fun <T> Iterable<T>.distinctByIdentity(): List<T> {
     val seen = IdentityHashMap<T, Boolean>()

@@ -8,8 +8,7 @@ package one.wabbit.data
  * @property value The value held by the reference.
  */
 class Ref<out A>(val value: A) {
-    override fun hashCode(): Int =
-        System.identityHashCode(value)
+    override fun hashCode(): Int = System.identityHashCode(value)
 
     override fun equals(other: Any?): Boolean =
         this === other || (other is Ref<*> && value === other.value)

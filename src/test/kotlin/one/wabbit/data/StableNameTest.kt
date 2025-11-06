@@ -1,15 +1,19 @@
 package one.wabbit.data
 
 import java.lang.ref.WeakReference
-import java.util.*
+import java.util.Collections
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNotSame
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class StableNameTest {
-
     @Test
     fun same_object_same_name() {
         val o = Any()
@@ -39,8 +43,8 @@ class StableNameTest {
 
     @Test
     fun identity_overrides_value_equality_for_strings() {
-        val s1 = String(charArrayOf('h','i')) // distinct instance, not a literal
-        val s2 = String(charArrayOf('h','i'))
+        val s1 = String(charArrayOf('h', 'i')) // distinct instance, not a literal
+        val s2 = String(charArrayOf('h', 'i'))
         assertNotSame(s1, s2)
         assertEquals(s1, s2) // value-equal
         val n1 = StableName.of(s1)

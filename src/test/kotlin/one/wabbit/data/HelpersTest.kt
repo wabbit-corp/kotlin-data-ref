@@ -5,7 +5,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotSame
 
 class IdentityHelpersTest {
-    @Test fun distinctByIdentity_works() {
+    @Test
+    fun distinctByIdentity_works() {
         val a1 = String(charArrayOf('a'))
         val a2 = String(charArrayOf('a'))
         val xs = listOf(a1, a2, a1)

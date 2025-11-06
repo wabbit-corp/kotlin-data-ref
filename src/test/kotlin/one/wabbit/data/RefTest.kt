@@ -1,12 +1,17 @@
 package one.wabbit.data
 
-import kotlin.test.*
-import java.util.*
+import java.util.HashMap
+import java.util.HashSet
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 internal class Box(val id: Int)
 
 class RefTest {
-
     @Test
     fun equality_reflexive_symmetric_transitive() {
         val obj = Box(1)
