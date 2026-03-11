@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 repositories {
     google()
 
@@ -9,7 +11,7 @@ repositories {
 }
 
 group = "one.wabbit"
-version = "1.1.1"
+version = "2.0.0"
 
 plugins {
     id("com.android.kotlin.multiplatform.library")
@@ -24,7 +26,7 @@ plugins {
 }
 
 mavenPublishing {
-    coordinates("one.wabbit", "kotlin-data-ref", "1.1.1")
+    coordinates("one.wabbit", "kotlin-data-ref", "2.0.0")
     publishToMavenCentral()
     signAllPublications()
     pom {
@@ -86,29 +88,25 @@ kotlin {
         minSdk = 26
     }
 
-    sourceSets {
-        val commonMain by getting
+    iosArm64()
 
+    iosSimulatorArm64()
+
+    macosArm64("hostNative")
+
+    targets.withType(KotlinNativeTarget::class.java).configureEach {
+        binaries.framework {
+            baseName = "DataRef"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test:2.3.10")
 
             }
-
-        }
-
-        val jvmAndAndroidMain by creating {
-            dependsOn(commonMain)
-
-        }
-
-        val jvmMain by getting {
-            dependsOn(jvmAndAndroidMain)
-
-        }
-
-        val androidMain by getting {
-            dependsOn(jvmAndAndroidMain)
 
         }
 

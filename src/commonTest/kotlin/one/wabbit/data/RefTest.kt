@@ -1,7 +1,5 @@
 package one.wabbit.data
 
-import java.util.HashMap
-import java.util.HashSet
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -19,18 +17,12 @@ class RefTest {
         val r2 = Ref(obj)
         val r3 = Ref(obj)
 
-        // reflexive
         assertEquals(r1, r1)
-
-        // symmetric
         assertEquals(r1, r2)
         assertEquals(r2, r1)
-
-        // transitive
         assertEquals(r1, r3)
         assertEquals(r2, r3)
 
-        // inequality with different instance (even if "equal by value")
         val sameByValue = Box(1)
         val rDiff = Ref(sameByValue)
         assertNotEquals(r1, rDiff)
@@ -54,17 +46,13 @@ class RefTest {
         val b = Ref(obj)
         val c = Ref(Any())
 
-        // equal -> equal hashes
         assertEquals(a.hashCode(), b.hashCode())
-        // hash collisions possible in theory; don't assert for inequality of hashes
 
         val set = HashSet<Ref<Any>>()
         assertTrue(set.add(a))
-        // contains should work via equals/hashCode
         assertTrue(set.contains(b))
         assertFalse(set.contains(c))
 
-        // maps
         val map = HashMap<Ref<Any>, String>()
         map[a] = "hit"
         assertEquals("hit", map[b])
@@ -73,7 +61,7 @@ class RefTest {
 
     @Test
     fun variance_does_not_break_equality() {
-        val x = String(charArrayOf('x')) // not a literal; avoids interning surprises
+        val x = charArrayOf('x').concatToString()
         val rString: Ref<String> = Ref(x)
         val rCharSeq: Ref<CharSequence> = Ref(x)
         assertEquals(rString, rCharSeq)
@@ -83,7 +71,7 @@ class RefTest {
     fun toString_includes_class_and_identity_hex() {
         val obj = Box(42)
         val ref = Ref(obj)
-        val hex = Integer.toHexString(System.identityHashCode(obj))
+        val hex = platformIdentityHashCode(obj).toUInt().toString(16)
         val s = ref.toString()
 
         assertTrue(s.contains("Box"))
@@ -99,7 +87,6 @@ class RefTest {
         val sa = Ref(anon).toString()
         val sb = Ref(arr).toString()
 
-        // Just ensure we didn’t drop the class info entirely and we carry the identity hash.
         assertTrue(sa.contains("@"))
         assertTrue(sb.contains("@"))
     }
