@@ -31,4 +31,15 @@ class IdentityHelpersTest {
         assertTrue(map.containsKey(a1))
         assertFalse(map.containsKey(a2))
     }
+
+    @Test
+    fun identitySet_remove_uses_reference_identity() {
+        val a1 = charArrayOf('a').concatToString()
+        val a2 = charArrayOf('a').concatToString()
+        val set = identitySetOf(a1, a2)
+
+        assertTrue(set.remove(a1))
+        assertFalse(set.contains(a1))
+        assertTrue(set.contains(a2))
+    }
 }
