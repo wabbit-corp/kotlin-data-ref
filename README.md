@@ -1,12 +1,19 @@
 # kotlin-data-ref
 
+![](./.meta/github-project-banner.png)
+
+<p align=center>
+    <img src="https://img.shields.io/maven-central/v/one.wabbit/kotlin-data-ref" alt="Maven Central">
+    <img src="https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF" alt="Kotlin Multiplatform">
+</p>
+
 `kotlin-data-ref` provides small identity-based collection helpers for Kotlin Multiplatform code.
 
 Use it when object identity matters more than structural equality: graph algorithms, object
 interning, cycle detection, memoization keyed by object references, and diagnostics that need to
 distinguish equal-but-distinct objects.
 
-## Installation
+## 🚀 Installation
 
 ```kotlin
 commonMain.dependencies {
@@ -14,7 +21,7 @@ commonMain.dependencies {
 }
 ```
 
-## Quick Start
+## 🚀 Usage
 
 ```kotlin
 import one.wabbit.data.Ref
@@ -99,3 +106,8 @@ This project is licensed under the GNU Affero General Public License v3.0 (AGPL-
 source use.
 
 For commercial use, contact Wabbit Consulting Corporation at `wabbit@wabbit.one`.
+
+## Contributing
+
+Contributions are governed by the repository contribution policy and the Wabbit CLA. See
+`CONTRIBUTING.md` and the files under `legal/`.

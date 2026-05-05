@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package one.wabbit.data
 
 /**
@@ -14,7 +16,7 @@ package one.wabbit.data
  */
 class Ref<out A>(
     /** The value whose reference identity is used for equality and hashing. */
-    val value: A,
+    val value: A
 ) {
     /**
      * Returns the platform identity hash code of [value].

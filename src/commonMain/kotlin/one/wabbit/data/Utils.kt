@@ -1,9 +1,12 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package one.wabbit.data
 
 import kotlin.collections.AbstractMutableMap
 import kotlin.collections.AbstractMutableSet
 
-private class IdentityEntry<K, V>(override val key: K, override var value: V) : MutableMap.MutableEntry<K, V> {
+private class IdentityEntry<K, V>(override val key: K, override var value: V) :
+    MutableMap.MutableEntry<K, V> {
     override fun setValue(newValue: V): V {
         val oldValue = value
         value = newValue
@@ -50,8 +53,7 @@ private class IdentityMapImpl<K, V> : AbstractMutableMap<K, V>() {
             }
         }
 
-    override fun put(key: K, value: V): V? =
-        backing.put(Ref(key), IdentityEntry(key, value))?.value
+    override fun put(key: K, value: V): V? = backing.put(Ref(key), IdentityEntry(key, value))?.value
 
     override fun containsKey(key: K): Boolean = backing.containsKey(Ref(key))
 
@@ -97,8 +99,8 @@ private class IdentitySetImpl<T> : AbstractMutableSet<T>() {
 /**
  * Creates a mutable set whose membership test uses reference identity.
  *
- * Adding two distinct objects that are structurally equal stores both objects. Adding the same object
- * reference twice stores it once. Lookup and removal use the same identity semantics.
+ * Adding two distinct objects that are structurally equal stores both objects. Adding the same
+ * object reference twice stores it once. Lookup and removal use the same identity semantics.
  *
  * @param T The element type.
  * @return A new empty mutable identity set.
@@ -134,8 +136,8 @@ fun <K, V> identityMap(): MutableMap<K, V> = IdentityMapImpl()
 /**
  * Returns the first occurrence of each distinct object reference in this iterable.
  *
- * The result preserves iteration order. Objects that compare equal but are not the same reference are
- * both retained.
+ * The result preserves iteration order. Objects that compare equal but are not the same reference
+ * are both retained.
  *
  * @param T The element type.
  * @return A list containing only the first occurrence of each reference identity.
